@@ -1,6 +1,8 @@
 package com.intersoluciones.service.Impl;
 
 
+
+
 import java.util.Optional;
 
 
@@ -8,7 +10,6 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.intersoluciones.dtos.ResponseDTO;
 import com.intersoluciones.dtos.UsuarioDTO;
 import com.intersoluciones.entities.TipoDocumento;
@@ -17,20 +18,18 @@ import com.intersoluciones.maps.UsuarioMapper;
 import com.intersoluciones.repository.TipoDocumentoRepository;
 import com.intersoluciones.repository.UsuarioRepository;
 import com.intersoluciones.servic.IUsuarioService;
-
-
-
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UsuarioServiceImpl implements IUsuarioService{
 	
 	private final UsuarioRepository usuarioRepository;
-	 private TipoDocumentoRepository tipoDocumentoRepository;
-	 private UsuarioMapper usuarioMapper;
-
+	
+	
 	@Override
 	public ResponseEntity<ResponseDTO> crearUsuario(UsuarioDTO usuarioDTO) {
 		Usuario usuario = UsuarioMapper.INSTANCE.dtoToEntity(usuarioDTO);
@@ -77,6 +76,8 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	}
 	
 	
+	
+	
 	@Override
 	public ResponseEntity<ResponseDTO> eliminarUsuario(Integer id_usuario) {
 	    // Buscar el usuario por su ID
@@ -107,65 +108,41 @@ public class UsuarioServiceImpl implements IUsuarioService{
 	        ResponseDTO responseDTO = new ResponseDTO("Error al eliminar el usuario", null, null);
 	        return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
-	}
-	
-		
+
+	 }
 	@Override
-	public void agregarDocumentosAUsuario(Integer id_usuario) {
-		Usuario usuario = usuarioRepository.findById(id_usuario).orElse(null); 
-		if (usuario != null) {
-		    TipoDocumento documento1 = new TipoDocumento();
-		    // Establecer el usuario para el documento1
-		    documento1.setDescripcion("Cedula");
-		    documento1.setUsuario(usuario);
+	public ResponseEntity<ResponseDTO> crearUsuarioConDocumentos(UsuarioDTO usuarioDTO) {
+		log.info("Inicio metodo crearUsuarioConDocumentos: {} " , usuarioDTO);
+		// Crear un nuevo objeto Usuario para guardar en la base de datos
+        Usuario nuevoUsuario = new Usuario();
+       // Establecer las propiedades del usuario a partir de UsuarioDTO
+        nuevoUsuario.setNombre(usuarioDTO.getNombre());
+        nuevoUsuario.setNo_documento(usuarioDTO.getNo_documento());
+        nuevoUsuario.setTelefono(usuarioDTO.getTelefono());
+        nuevoUsuario.setCiudad(usuarioDTO.getCiudad());
+        nuevoUsuario.setDireccion(usuarioDTO.getDireccion());
+        nuevoUsuario.setEmail(usuarioDTO.getEmail());
+        nuevoUsuario.setPassword(usuarioDTO.getPassword());
+        
+        nuevoUsuario.setTipoDocumento(TipoDocumento.builder().id_tipo_documento(usuarioDTO.getTipoDocumento().getId_tipo_documento()).build());
+        this.usuarioRepository.save(nuevoUsuario);
+     // Crear una respuesta indicando que el usuario se creó con éxito
+        ResponseDTO response = new ResponseDTO("Usuario creado con éxito junto con los tipos de documento", null, null);
 
-		    // Establecer el usuario para el documento2
-		   TipoDocumento documento2 = new TipoDocumento();
-		    documento2.setDescripcion("Cedula1");
-		    documento2.setUsuario(usuario);
-		    
-		    // Agregar los documentos a la lista de documentos del usuario
-		    usuario.getTipoDocumentos().add(documento1);
-		    usuario.getTipoDocumentos().add(documento2);
-		    
-		    
-		 // Guardar los cambios en la base de datos
-		    usuarioRepository.save(usuario);
-			
-		}
+        // Devolver una respuesta exitosa con la respuesta creada
+        return ResponseEntity.ok(response);
+		
 	}
 		
-		    @Override
-		     public ResponseEntity<ResponseDTO> registrarUsuarioConDocumento(UsuarioDTO usuarioDTO) {
-		        // Crear un nuevo usuario a partir de UsuarioDTO     
-		        Usuario nuevoUsuario = new Usuario();
-		        nuevoUsuario.setNombre(usuarioDTO.getNombre());
-		        nuevoUsuario.setNo_documento(usuarioDTO.getNo_documento());
-		        nuevoUsuario.setTelefono(usuarioDTO.getTelefono());
-		        nuevoUsuario.setCiudad(usuarioDTO.getCiudad());
-		        nuevoUsuario.setDireccion(usuarioDTO.getDireccion());
-		        nuevoUsuario.setEmail(usuarioDTO.getEmail());
-		        nuevoUsuario.setPassword(usuarioDTO.getPassword());
-		        
-		        Usuario usuarioGuardado = usuarioRepository.save(nuevoUsuario);
-   
-		       // Crear un tipo de documento y asociarlo al usuario
-		        
-		        
-		        TipoDocumento tipoDocumento = new TipoDocumento();
-		        tipoDocumento.setDescripcion("Cedula");
-		        tipoDocumento.setUsuario(usuarioGuardado);
+	 }
 
-		      // Guardar el tipo de documento en la base de datos
-		        tipoDocumentoRepository.save(tipoDocumento);
+	
+	
+	    
+	    
+	
+	
 
-		     // Crear una respuesta exitosa
-		           
-		     ResponseDTO response = new ResponseDTO("Usuario registrado con éxito y tipo de documento agregado", null, null);   
-		     return ResponseEntity.ok(response);
-		    
-	}
-}
 		  
   
 	

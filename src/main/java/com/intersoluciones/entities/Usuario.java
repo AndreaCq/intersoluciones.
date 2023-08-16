@@ -12,6 +12,8 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,13 +35,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "usuario",schema="seguridad")
+@Table(name = "usuario", schema = "seguridad")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = true")
 
+public class Usuario implements Serializable {
 
-public class Usuario implements Serializable{
-	
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -47,42 +48,39 @@ public class Usuario implements Serializable{
 	@Basic(optional = false)
 	@Column(name = "id_usuario")
 	private Integer id_usuario;
-	
+
 	@Basic(optional = false)
 	@Column(name = "nombre")
 	private String nombre;
-	
+
 	@Basic(optional = false)
 	@Column(name = "no_documento")
 	private String no_documento;
-	
+
 	@Basic(optional = false)
 	@Column(name = "telefono")
-	private String  telefono;
-	
+	private String telefono;
+
 	@Basic(optional = false)
 	@Column(name = "ciudad")
 	private String ciudad;
-	
+
 	@Basic(optional = false)
 	@Column(name = "direccion")
 	private String direccion;
-	
+
 	@Basic(optional = false)
 	@Column(name = "email")
 	private String email;
-	
+
 	@Basic(optional = false)
 	@Column(name = "password")
 	private String password;
-	
-	
-	
+
 	@Basic(optional = true)
 	@Column(name = "bloqueado")
-	private Boolean bloqueado; 
-	
-	
+	private Boolean bloqueado;
+
 	@Basic(optional = true)
 	@Column(name = "usuario_creacion", insertable = true, updatable = false)
 	private String usuarioCreacion;
@@ -94,11 +92,11 @@ public class Usuario implements Serializable{
 	private Date fechaCreacion;
 
 	@Basic(optional = true)
-	@Column(name = "usuario_modificacion",updatable = true, insertable = false )
+	@Column(name = "usuario_modificacion", updatable = true, insertable = false)
 	private String usuarioModifica;
 
 	@Basic(optional = true)
-	@Column(name = "fecha_modificacion",updatable = true, insertable = false)
+	@Column(name = "fecha_modificacion", updatable = true, insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
 	private Date fechaModifica;
@@ -106,17 +104,9 @@ public class Usuario implements Serializable{
 	@Basic(optional = true)
 	@Column(name = "activo", insertable = true, updatable = true)
 	private Boolean activo;
-	
-	
-	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TipoDocumento> tipoDocumentos = new ArrayList<>();
-	
-	/*@JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento")
+
+	@JoinColumn(name = "id_tipo_documento", referencedColumnName = "id_tipo_documento")
 	@ManyToOne(optional = true)
-	private TipoDocumento tipoDocumento; */
-	
-	
-	
-		
-	}
+    private TipoDocumento tipoDocumento;
+
+}

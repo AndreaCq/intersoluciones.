@@ -82,7 +82,12 @@ private static final long serviceVersionUID = 1L;
 	 @ManyToOne
 	 @JoinColumn(name = "id_usuario")
 	 private Usuario usuario;
+	 
+
+	
+		
 	}
+	
 
 	
 	

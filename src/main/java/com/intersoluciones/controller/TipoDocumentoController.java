@@ -25,9 +25,16 @@ public class TipoDocumentoController {
 	
 	private final TipoDocumentoServiceImpl tipodocumentoService;
 	
+	
 	 @PostMapping
 	    public ResponseEntity<TipoDocumento> crearTipoDocumento(@RequestBody TipoDocumento tipoDocumento) {
 	        TipoDocumento nuevoTipoDocumento = tipodocumentoService.crearTipoDocumento(tipoDocumento);
 	        return new ResponseEntity<>(nuevoTipoDocumento, HttpStatus.CREATED);
-	    }
+	
+
 }
+}
+
+
+
+

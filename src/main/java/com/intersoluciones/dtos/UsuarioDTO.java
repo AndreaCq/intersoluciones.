@@ -3,6 +3,7 @@ package com.intersoluciones.dtos;
 import java.io.Serializable;
 import java.util.Date;
 
+
 import com.intersoluciones.entities.TipoDocumento;
 
 import lombok.AllArgsConstructor;
