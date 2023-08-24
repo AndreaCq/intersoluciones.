@@ -3,7 +3,7 @@ package com.intersoluciones.maps;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+
 import org.mapstruct.factory.Mappers;
 import com.intersoluciones.dtos.UsuarioDTO;
 import com.intersoluciones.entities.Usuario;
@@ -17,6 +17,8 @@ public interface UsuarioMapper {
 
     @InheritInverseConfiguration
     Usuario dtoToEntity(UsuarioDTO usuarioDTO);
+
+	
 
   
 }

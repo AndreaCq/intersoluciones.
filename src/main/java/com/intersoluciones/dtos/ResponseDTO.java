@@ -1,5 +1,7 @@
 package com.intersoluciones.dtos;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

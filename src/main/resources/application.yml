@@ -1,0 +1,26 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: intersoluciones
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=intersoluciones
+    username: inter
+    password: 12345
+#    password: 6ytwRRkP5L4S3uGouMZeX8
+    connection-test-query: Select 1
+    allow-pool-suspension: true
+    maximum-pool-size: 15
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        default_schema: seguridad
+        jdbc:
+          lob:
+            non-contextual-creation: true
+    open-in-view: false

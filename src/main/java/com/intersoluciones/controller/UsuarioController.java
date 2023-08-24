@@ -4,6 +4,7 @@ package com.intersoluciones.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -23,25 +24,27 @@ public class UsuarioController {
 	
 	private final UsuarioServiceImpl serviceUsuario;
 
-@PostMapping("/crear")
-    public ResponseEntity<ResponseDTO> crearUsuario(@RequestBody UsuarioDTO usuarioDTO) {
-        return serviceUsuario.crearUsuario(usuarioDTO);
-    }
 
-@PutMapping("/actualizar/{id}")
-public ResponseEntity<ResponseDTO> actualizarUsuario(@PathVariable Integer id, @RequestBody UsuarioDTO usuarioDTO) {
-	return serviceUsuario.actualizarUsuario(id, usuarioDTO);
-}
 
-   @DeleteMapping("/eliminar/{id_usuario}")
-  public ResponseEntity<ResponseDTO> eliminarUsuario(@PathVariable Integer id_usuario) {
-  return this.serviceUsuario.eliminarUsuario(id_usuario);
-	
-}
    @PostMapping("/crear-usuario-documento")
    public ResponseEntity<ResponseDTO> crearUsuarioDocumento(@RequestBody UsuarioDTO usuarioDTO) {
        return serviceUsuario.crearUsuarioConDocumentos(usuarioDTO);
 }
+  
+   
+   @PutMapping("/actualizar")
+   public ResponseEntity<ResponseDTO> actualizarUsuario(@RequestBody UsuarioDTO usuarioDTO ) {   
+   	return serviceUsuario.actualizarUsuario(usuarioDTO);
+   }
+   
+   @GetMapping("eliminar/{id}")
+   public String eliminarUsuario(@PathVariable Integer id){
+	   if(id>0) {
+		   serviceUsuario.eliminarUsuario(id);
+		
+	   }
+	   return "Usuario eliminado";
+   }
 }  
 
 
