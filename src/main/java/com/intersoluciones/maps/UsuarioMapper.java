@@ -1,33 +1,24 @@
 package com.intersoluciones.maps;
 
+
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
 import com.intersoluciones.dtos.UsuarioDTO;
 import com.intersoluciones.entities.Usuario;
 
-@Mapper
+@Mapper(uses = TipoDocumentoMapper.class)
 public interface UsuarioMapper {
-	
-UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
-	
-/*	UsuarioDTO entityToDto(UsuarioDTO usuario);
-	
-	@InheritInverseConfiguration
-	Usuario dtoToEntity(UsuarioDTO usuario);*/
 
+    UsuarioMapper INSTANCE = Mappers.getMapper(UsuarioMapper.class);
+    
+    UsuarioDTO entityToDto(Usuario usuario);
 
-   @Mapping(target = "documentType", source = "usuario.tipoDocumento.descripcion")
-   UsuarioDTO entityToDto(Usuario usuario);
+    @InheritInverseConfiguration
+    Usuario dtoToEntity(UsuarioDTO usuarioDTO);
 
-   @InheritInverseConfiguration
-   @Mapping(target = "tipoDocumento.descripcion", source = "documentType")
-   
- 
- Usuario dtoToEntity(UsuarioDTO usuario);
-   
+  
 }
 		
 	
