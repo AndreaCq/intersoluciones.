@@ -11,14 +11,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class TipoDocumentoDTO {
+public class BancosActivosDTO {
 	
-	private Integer id_tipo_documento;
+	
+	private Integer id_bancos_activos;
 	private String codigo;
 	private String descripcion;
 	private String usuarioCreacion;
 	private Date fechaCreacion;
-	private String usuarioModificacion;
-	private Date fechaModificacion;
+	private String usuarioModifica;
+	private Date fechaModifica;
 	private Boolean activo;
+
+
+	
+
 }

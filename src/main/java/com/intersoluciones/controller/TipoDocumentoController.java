@@ -3,6 +3,7 @@ package com.intersoluciones.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import com.intersoluciones.service.Impl.UsuarioServiceImpl;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/v1/tipo_documento")
+@RequestMapping("/v1/tipodocumento")
 @CrossOrigin
 @RequiredArgsConstructor
 public class TipoDocumentoController {
@@ -33,6 +34,10 @@ public class TipoDocumentoController {
 	
 
 }
+	 @GetMapping
+		public ResponseEntity<ResponseDTO>consultarTipoDocumento(){
+			return this.tipodocumentoService.consultarTipoDocumento();
+		}   
 }
 
 

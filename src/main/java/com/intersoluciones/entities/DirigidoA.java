@@ -1,7 +1,6 @@
 package com.intersoluciones.entities;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -10,16 +9,15 @@ import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,22 +28,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "pa_tipo_documento",schema="configuracion")
+@Table(name = "pa_dirigido_a",schema="configuracion")
 @EntityListeners(AuditingEntityListener.class)
 @Where(clause = "activo = true")
+public class DirigidoA {
+	
+	private static final long serialVersionUID = 1L;
 
-
-public class TipoDocumento {
-	
-private static final long serviceVersionUID = 1L;
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
-	@Column(name = "id_tipo_documento")
-	private Integer id_tipo_documento;
-	
+	@Column(name = "id_dirigido_a")
+	private Integer id_dirigido_a;
+
 	@Basic(optional = false)
 	@Column(name = "codigo")
 	private String codigo;
@@ -53,8 +48,7 @@ private static final long serviceVersionUID = 1L;
 	@Basic(optional = false)
 	@Column(name = "descripcion")
 	private String descripcion;
-
-
+	
 	@Basic(optional = true)
 	@Column(name = "usuario_creacion", insertable = true, updatable = false)
 	private String usuarioCreacion;
@@ -66,26 +60,21 @@ private static final long serviceVersionUID = 1L;
 	private Date fechaCreacion;
 
 	@Basic(optional = true)
-	@Column(name = "usuario_modificacion",updatable = true, insertable = false )
-	private String usuarioModificacion;
+	@Column(name = "usuario_modificacion", updatable = true, insertable = false)
+	private String usuarioModifica;
 
 	@Basic(optional = true)
-	@Column(name = "fecha_modificacion",updatable = true, insertable = false)
+	@Column(name = "fecha_modificacion", updatable = true, insertable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	@LastModifiedDate
-	private Date fechaModificacion;
+	private Date fechaModifica;
 
 	@Basic(optional = true)
 	@Column(name = "activo", insertable = true, updatable = true)
 	private Boolean activo;
-	
-	}
-	
 
-	
+
 	
 	
 
-	
-
-
+}
